@@ -3,7 +3,7 @@ const AuthError = require('./AuthError');
 const RequestError = require('./RequestError');
 const ConflictError = require('./ConflictError');
 
-const handleUserFound = (user, res) => {
+const handleUserNotFound = (user, res) => {
   if (!user) {
     throw new NotFoundError('Пользователь не найден!');
   } else {
@@ -13,9 +13,9 @@ const handleUserFound = (user, res) => {
 
 const handleConflictError = (err, next) => {
   if (err.name === 'ValidationError' || err.name === 'CastError') {
-    throw new RequestError('Переданы некорректные данные!');
+    next(new RequestError('Переданы некорректные данные!'));
   } else if (err.code === 11000 || err.name === 'MongoError') {
-    throw new ConflictError('Email уже существует!');
+    next(new ConflictError('Email уже существует!'));
   } else {
     next(err);
   }
@@ -27,14 +27,14 @@ const handleAuthError = () => {
 
 const handleError = (err, next) => {
   if (err.name === 'ValidationError' || err.name === 'CastError') {
-    throw new RequestError('Переданы некорректные данные!');
+    next(new RequestError('Переданы некорректные данные!'));
   } else {
     next(err);
   }
 };
 
 module.exports = {
-  handleUserFound,
+  handleUserNotFound,
   handleConflictError,
   handleAuthError,
   handleError,
