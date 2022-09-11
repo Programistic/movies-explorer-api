@@ -33,9 +33,9 @@ const getCurrentUser = (req, res, next) => {
 };
 
 const getUserByIdAndUpdate = (req, res, next) => {
-  const { name } = req.body;
+  const { email, name } = req.body;
   const { _id } = req.user;
-  User.findByIdAndUpdate(_id, { name }, { new: true, runValidators: true })
+  User.findByIdAndUpdate(_id, { email, name }, { new: true, runValidators: true })
     .then((user) => {
       handleUserNotFound(user, res);
     })
