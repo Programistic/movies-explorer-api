@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const isEmail = require('validator/lib/isEmail');
 
 const userSchema = new mongoose.Schema({
+  // email пользователя
   email: {
     type: String,
     required: true,
@@ -11,12 +12,13 @@ const userSchema = new mongoose.Schema({
       message: 'Неверный формат электронной почты!',
     },
   },
-  /* хеш пароля? поведение по умолчанию? */
+  // хеш пароля пользователя (хеш пароля? поведение по умолчанию?)
   password: {
     type: String,
     required: true,
     select: false,
   },
+  // имя пользователя
   name: {
     type: String,
     required: true,
