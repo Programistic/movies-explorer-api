@@ -1,8 +1,10 @@
 require('dotenv').config();
 const express = require('express');
+const { errors } = require('celebrate');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const handleServerError = require('./middlewares/handleServerError');
 
 const DB_CONN = 'mongodb://localhost:27017/bitfilmsdb';
 
@@ -20,5 +22,7 @@ mongoose.connect(DB_CONN, {
 app.use(requestLogger);
 
 app.use(errorLogger);
+app.use(errors);
+app.use(handleServerError);
 
 app.listen(PORT);
