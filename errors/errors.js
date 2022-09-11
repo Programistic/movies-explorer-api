@@ -2,6 +2,7 @@ const NotFoundError = require('./NotFoundError');
 const AuthError = require('./AuthError');
 const RequestError = require('./RequestError');
 const ConflictError = require('./ConflictError');
+const UnauthRequestError = require('./UnauthRequestError');
 
 const handleUserNotFound = (user, res) => {
   if (!user) {
@@ -33,9 +34,23 @@ const handleError = (err, next) => {
   }
 };
 
+const handleDeleteMovieFound = (movie) => {
+  if (!movie) {
+    throw new NotFoundError('Удаляемый фильм не найден!');
+  }
+};
+
+const handleCheckMovieOwner = (movie, req) => {
+  if (req.user._id !== movie.owner.toString()) {
+    throw new UnauthRequestError('Удалить сохранённый фильм может только владелец аккаунта!');
+  }
+};
+
 module.exports = {
   handleUserNotFound,
   handleConflictError,
   handleAuthError,
   handleError,
+  handleDeleteMovieFound,
+  handleCheckMovieOwner,
 };
