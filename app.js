@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const handleServerError = require('./middlewares/handleServerError');
+const userRouter = require('./routes/users');
+const moviesRouter = require('./routes/movies');
+const NotFoundError = require('./errors/NotFoundError');
 
 const DB_CONN = 'mongodb://localhost:27017/bitfilmsdb';
 
@@ -20,6 +23,13 @@ mongoose.connect(DB_CONN, {
 });
 
 app.use(requestLogger);
+
+app.use('/users', userRouter);
+app.use('/movies', moviesRouter);
+
+app.use((req, res, next) => {
+  next(new NotFoundError('Ресурс не найден!'));
+});
 
 app.use(errorLogger);
 app.use(errors);
