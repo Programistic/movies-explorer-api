@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const isURL = require('validator/lib/isURL');
+const validator = require('node-mongoose-validator');
 
 const movieSchema = new mongoose.Schema({
   // id фильма, который содержится в ответе сервиса MoviesExplorer
@@ -10,7 +10,7 @@ const movieSchema = new mongoose.Schema({
   // id пользователя, который сохранил фильм
   owner: {
     type: mongoose.Schema.Types.ObjectId,
-    rev: 'user',
+    ref: 'user',
     required: true,
   },
   // страна создания фильма
@@ -42,28 +42,31 @@ const movieSchema = new mongoose.Schema({
   image: {
     type: String,
     required: true,
-    validate: {
-      validator: (v) => isURL(v),
-      message: 'Неверный формат ссылки!',
-    },
+    validate: validator.isURL({
+      protocols: ['http', 'https'],
+      require_protocol: true,
+      message: 'Пожалуйста, введите валидный URL-адрес!',
+    }),
   },
   // ссылка на трейлер фильма
   trailer: {
     type: String,
     required: true,
-    validate: {
-      validator: (v) => isURL(v),
-      message: 'Неверный формат ссылки!',
-    },
+    validate: validator.isURL({
+      protocols: ['http', 'https'],
+      require_protocol: true,
+      message: 'Пожалуйста, введите валидный URL-адрес!',
+    }),
   },
   // ссылка на миниатюрное изображение постера к фильму
   thumbnail: {
     type: String,
     required: true,
-    validate: {
-      validator: (v) => isURL(v),
-      message: 'Неверный формат ссылки!',
-    },
+    validate: validator.isURL({
+      protocols: ['http', 'https'],
+      require_protocol: true,
+      message: 'Пожалуйста, введите валидный URL-адрес!',
+    }),
   },
   // название фильма на русском
   nameRU: {

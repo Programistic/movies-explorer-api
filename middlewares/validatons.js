@@ -24,30 +24,30 @@ const validateUserBodyWhenUpdate = celebrate({
 });
 
 const validateMovieBody = celebrate({
-  body: Joi.object().keys({
+  body: Joi.object({
     movieId: Joi.number().required(),
     country: Joi.string().required(),
     director: Joi.string().required(),
     duration: Joi.number().required(),
     year: Joi.string().required(),
     description: Joi.string().required(),
-    image: Joi.string().required().custom((value, helper) => {
+    image: Joi.string().required().custom((value) => {
       if (validator.isURL(value)) {
         return value;
       }
-      return helper.message('Некорректный URL-адрес!');
+      return null;
     }),
-    trailer: Joi.string().required().custom((value, helper) => {
+    trailer: Joi.string().required().custom((value) => {
       if (validator.isURL(value)) {
         return value;
       }
-      return helper.message('Некорректный URL-адрес!');
+      return null;
     }),
-    thumbnail: Joi.string().required().custom((value, helper) => {
+    thumbnail: Joi.string().required().custom((value) => {
       if (validator.isURL(value)) {
         return value;
       }
-      return helper.message('Некорректный URL-адрес!');
+      return null;
     }),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),

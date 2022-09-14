@@ -15,8 +15,8 @@ const getAllSavedMovies = (req, res, next) => {
 
 const createMovie = (req, res, next) => {
   Movie.create({
-    owner: req.user._id,
     movieId: req.body.movieId,
+    owner: req.user._id,
     country: req.body.country,
     director: req.body.director,
     duration: req.body.duration,
