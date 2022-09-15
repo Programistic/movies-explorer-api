@@ -3,7 +3,7 @@ const validator = require('validator');
 
 const validateUserBody = celebrate({
   body: Joi.object().keys({
-    email: Joi.string().required(), // доделать валидацию
+    email: Joi.string().required().email(),
     password: Joi.string().required(),
     name: Joi.string().required().min(2).max(30),
   }),
@@ -24,7 +24,7 @@ const validateUserBodyWhenUpdate = celebrate({
 });
 
 const validateMovieBody = celebrate({
-  body: Joi.object({
+  body: Joi.object().keys({
     movieId: Joi.number().required(),
     country: Joi.string().required(),
     director: Joi.string().required(),
