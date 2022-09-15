@@ -7,6 +7,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const handleServerError = require('./middlewares/handleServerError');
 const router = require('./routes/index');
 const cors = require('./middlewares/cors');
+const { limiter } = require('./utils/constants');
 
 const DB_CONN = 'mongodb://localhost:27017/bitfilmsdb';
 
@@ -24,6 +25,8 @@ mongoose.connect(DB_CONN, {
 });
 
 app.use(requestLogger);
+
+app.use(limiter);
 
 app.use(router);
 
