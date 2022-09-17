@@ -6,8 +6,14 @@ const {
 } = require('../errors/errors');
 
 const getAllSavedMovies = (req, res, next) => {
+  const userId = req.user._id;
   Movie.find({})
-    .then((movie) => res.send({ movie })) // сделать фильтрацию фильмов по владельцу аккаунта
+    .then((movies) => {
+      const savedMovies = movies.filter(
+        (item) => String(item.owner) === userId,
+      );
+      res.send(savedMovies);
+    })
     .catch((err) => {
       handleError(err, next);
     });
