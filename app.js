@@ -31,7 +31,7 @@ app.use(limiter);
 app.use(router);
 
 app.use(errorLogger);
-app.use(errors);
+app.use(errors());
 app.use(handleServerError);
 
 app.listen(PORT);
