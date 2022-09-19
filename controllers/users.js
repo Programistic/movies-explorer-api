@@ -66,7 +66,7 @@ const login = (req, res, next) => {
         });
     })
     .catch(() => {
-      next(new AuthError('Ошибка авторизации!'));
+      next(new AuthError('Неправильная почта или пароль!'));
     });
 };
 
