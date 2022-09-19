@@ -49,7 +49,7 @@ const movieSchema = new mongoose.Schema({
     }),
   },
   // ссылка на трейлер фильма
-  trailer: {
+  trailerLink: {
     type: String,
     required: true,
     validate: validator.isURL({

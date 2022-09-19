@@ -29,7 +29,7 @@ const createMovie = (req, res, next) => {
     year: req.body.year,
     description: req.body.description,
     image: req.body.image,
-    trailer: req.body.trailer,
+    trailerLink: req.body.trailerLink,
     thumbnail: req.body.thumbnail,
     nameRU: req.body.nameRU,
     nameEN: req.body.nameEN,

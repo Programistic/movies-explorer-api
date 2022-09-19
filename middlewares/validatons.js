@@ -37,7 +37,7 @@ const validateMovieBody = celebrate({
       }
       return null;
     }),
-    trailer: Joi.string().required().custom((value) => {
+    trailerLink: Joi.string().required().custom((value) => {
       if (validator.isURL(value)) {
         return value;
       }
