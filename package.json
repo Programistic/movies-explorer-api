@@ -1,7 +1,7 @@
 {
   "name": "movies-explorer-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "The backend of a diploma project",
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js",
@@ -13,7 +13,7 @@
     "url": "git+https://github.com/Programistic/movies-explorer-api.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Maksim Davletkildeev",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Programistic/movies-explorer-api/issues"
