@@ -7,11 +7,9 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const handleServerError = require('./middlewares/handleServerError');
 const router = require('./routes/index');
 const cors = require('./middlewares/cors');
-const { limiter } = require('./utils/constants');
+const { limiter, devmoviesdb } = require('./utils/constants');
 
-const DB_CONN = 'mongodb://localhost:27017/bitfilmsdb';
-
-const { PORT = 3001 } = process.env;
+const { PORT = 3001, DB_CONN, NODE_ENV } = process.env;
 
 const app = express();
 
@@ -20,7 +18,7 @@ app.use(cors);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect(DB_CONN, {
+mongoose.connect(NODE_ENV === 'production' ? DB_CONN : devmoviesdb, {
   useNewUrlParser: true,
 });
 
