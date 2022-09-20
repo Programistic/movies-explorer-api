@@ -3,6 +3,7 @@ const express = require('express');
 const { errors } = require('celebrate');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const handleServerError = require('./middlewares/handleServerError');
 const router = require('./routes/index');
@@ -23,6 +24,8 @@ mongoose.connect(NODE_ENV === 'production' ? DB_CONN : devmoviesdb, {
 });
 
 app.use(requestLogger);
+
+app.use(helmet());
 
 app.use(limiter);
 
