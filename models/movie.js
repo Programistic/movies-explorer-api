@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('node-mongoose-validator');
+const { incorrectURL } = require('../constants/messages');
 
 const movieSchema = new mongoose.Schema({
   // id фильма, который содержится в ответе сервиса MoviesExplorer
@@ -45,7 +46,7 @@ const movieSchema = new mongoose.Schema({
     validate: validator.isURL({
       protocols: ['http', 'https'],
       require_protocol: true,
-      message: 'Пожалуйста, введите валидный URL-адрес!',
+      message: incorrectURL,
     }),
   },
   // ссылка на трейлер фильма
@@ -55,7 +56,7 @@ const movieSchema = new mongoose.Schema({
     validate: validator.isURL({
       protocols: ['http', 'https'],
       require_protocol: true,
-      message: 'Пожалуйста, введите валидный URL-адрес!',
+      message: incorrectURL,
     }),
   },
   // ссылка на миниатюрное изображение постера к фильму
@@ -65,7 +66,7 @@ const movieSchema = new mongoose.Schema({
     validate: validator.isURL({
       protocols: ['http', 'https'],
       require_protocol: true,
-      message: 'Пожалуйста, введите валидный URL-адрес!',
+      message: incorrectURL,
     }),
   },
   // название фильма на русском

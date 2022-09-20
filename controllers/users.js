@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const { handleUserNotFound, handleError, handleConflictError } = require('../errors/errors');
 const AuthError = require('../errors/AuthError');
+const { wrongEmailOrPassword, successfulAuth } = require('../constants/messages');
+const { devKey } = require('../constants/configs');
 
 const { NODE_ENV, JWT_KEY } = process.env;
 
@@ -50,23 +52,23 @@ const login = (req, res, next) => {
   User.findOne({ email }).select('+password') //  идентификация по почте
     .then((user) => {
       if (!user) {
-        throw new AuthError('Неправильная почта или пароль!');
+        throw new AuthError(wrongEmailOrPassword);
       }
       return bcrypt.compare(password, user.password) //  аутентификация
         .then((matched) => {
           if (!matched) {
-            throw new AuthError('Неправильная почта или пароль!');
+            throw new AuthError(wrongEmailOrPassword);
           }
           const token = jwt.sign(
             { _id: user._id },
-            NODE_ENV === 'production' ? JWT_KEY : '123',
+            NODE_ENV === 'production' ? JWT_KEY : devKey,
             { expiresIn: '7d' },
           );
-          res.send({ message: 'Успешная авторизация!', token });
+          res.send({ message: successfulAuth, token });
         });
     })
     .catch(() => {
-      next(new AuthError('Неправильная почта или пароль!'));
+      next(new AuthError(wrongEmailOrPassword));
     });
 };
 

@@ -8,7 +8,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const handleServerError = require('./middlewares/handleServerError');
 const router = require('./routes/index');
 const cors = require('./middlewares/cors');
-const { limiter, devmoviesdb } = require('./utils/constants');
+const { limiter, devmoviesdb } = require('./constants/configs');
 
 const { PORT = 3001, DB_CONN, NODE_ENV } = process.env;
 

@@ -1,6 +1,7 @@
 const { celebrate, Joi } = require('celebrate');
 const validator = require('validator');
 const RequestError = require('../errors/RequestError');
+const { incorrectURL } = require('../constants/messages');
 
 const validateUserBody = celebrate({
   body: Joi.object().keys({
@@ -36,19 +37,19 @@ const validateMovieBody = celebrate({
       if (validator.isURL(value)) {
         return value;
       }
-      throw new RequestError('Невалидный URL!');
+      throw new RequestError(incorrectURL);
     }),
     trailerLink: Joi.string().required().custom((value) => {
       if (validator.isURL(value)) {
         return value;
       }
-      throw new RequestError('Невалидный URL!');
+      throw new RequestError(incorrectURL);
     }),
     thumbnail: Joi.string().required().custom((value) => {
       if (validator.isURL(value)) {
         return value;
       }
-      throw new RequestError('Невалидный URL!');
+      throw new RequestError(incorrectURL);
     }),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
