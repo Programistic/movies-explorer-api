@@ -22,6 +22,8 @@ const allowedCors = [
   'http://localhost:3000',
   'https://localhost:3001',
   'http://localhost:3001',
+  'https://films-explorer.nomoredomains.sbs',
+  'http://films-explorer.nomoredomains.sbs',
 ];
 
 module.exports = {
